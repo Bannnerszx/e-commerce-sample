@@ -1,0 +1,13 @@
+lightmode 
+text: #050315
+bg: #fbfbfe
+primary: #2f27ce
+secondary: #dedcff
+accent: #443dff
+
+darkmode
+text: #eae9fc
+bg: #010104
+primary: #3a31d8
+secondary: #020024
+accent: #0600c2

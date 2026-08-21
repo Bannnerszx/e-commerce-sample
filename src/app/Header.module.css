@@ -1,0 +1,122 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: var(--color-bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+
+.scrolled {
+  border-bottom-color: color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-lg);
+}
+
+.brand {
+  --mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace,
+    "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --sans: var(--font-space-grotesk), "Space Grotesk", system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 0.98;
+  color: var(--color-text);
+}
+
+.wordTop {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.wordBottom {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: color-mix(in srgb, var(--color-text) 62%, var(--color-bg));
+  transition: color 0.18s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover .wordBottom {
+    color: var(--color-accent);
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 72%, var(--color-bg));
+  transition: color 0.18s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--color-accent);
+  }
+}
+
+.link:focus-visible,
+.brand:focus-visible,
+.cta:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: 0.18s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cta:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+@media (max-width: 600px) {
+  .inner {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .nav {
+    display: none;
+  }
+}

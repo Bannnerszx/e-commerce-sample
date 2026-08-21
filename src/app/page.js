@@ -1,69 +1,59 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import Showcase from "./Showcase";
+import Logo from "./Logo";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
+    <>
+      <div className={styles.page}>
+        <main className={styles.main}>
+          <span className={styles.small}>
+            FULL-STACK &middot; REAL-TIME &middot; DOCUMENTED &middot; UPTIME
+          </span>
+
+          <h1 className={styles.title}>
+            <span className={styles.line}>E-Commerce &mdash; and</span>{" "}
+            <span className={styles.line}>some stuff showcase.</span>
           </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className={styles.subtitle}>
+            I build things that launch, stay up, and make sense to the next person &mdash; from the first plan to the last deploy, with docs that don&rsquo;t make you cry(sometimes me).
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+          <div className={styles.ctas}>
+            <a href="#work" className={styles.primary}>
+              See it live &darr;
+            </a>
+            <a
+              href="#"
+              className={styles.secondary}
+              target="_blank"
+              rel="noreferrer"
+            >
+              See Documentation &rarr;
+            </a>
+          </div>
+
+          <dl className={styles.stats}>
+            <div className={styles.stat}>
+              <dt>Real-time</dt>
+              <dd>Live data, no refresh</dd>
+            </div>
+            <div className={styles.stat}>
+              <dt>Design system</dt>
+              <dd>Tokens &amp; theming</dd>
+            </div>
+            <div className={styles.stat}>
+              <dt>Documented</dt>
+              <dd>Reads like a book</dd>
+            </div>
+          </dl>
+        </main>
+      </div>
+
+      <Logo />
+
+      <Showcase />
+    </>
   );
 }

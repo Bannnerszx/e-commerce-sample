@@ -1,0 +1,143 @@
+.band {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: -72px;
+  padding: 0 var(--space-lg) calc(var(--space-lg) * 1.5);
+  background: transparent;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 2px;
+  border: none;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-display);
+ 
+  transition: gap 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    padding 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    box-shadow 0.45s ease;
+}
+
+.logo:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 3px solid #fff;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
+}
+
+.reveal {
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.name {
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease, transform 0.45s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .logo:hover {
+    gap: 14px;
+    padding-right: 22px;
+
+  }
+
+  .logo:hover .reveal {
+    grid-template-columns: 1fr;
+  }
+
+  .logo:hover .name {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.logo:focus-visible {
+  gap: 14px;
+  padding-right: 22px;
+}
+
+.logo:focus-visible .reveal {
+  grid-template-columns: 1fr;
+}
+
+.logo:focus-visible .name {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  .logo,
+  .reveal,
+  .name {
+    transition: none;
+  }
+
+  .band {
+    margin-top: 0;
+    padding: var(--space-md) var(--space-md) var(--space-lg);
+  }
+
+  .logo {
+    gap: 10px;
+    padding-right: 16px;
+    max-width: 100%;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text) 10%, transparent);
+  }
+
+  .mark {
+    width: 72px;
+    height: 72px;
+    font-size: 1.2rem;
+  }
+
+  .logo .reveal {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .logo .name {
+    opacity: 1;
+    transform: translateX(0);
+    font-size: 1rem;
+    white-space: normal;
+    line-height: 1.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .reveal,
+  .name {
+    transition: none;
+  }
+}
