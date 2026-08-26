@@ -3,6 +3,7 @@ import {
   IBM_Plex_Sans,
   IBM_Plex_Mono,
   JetBrains_Mono,
+  Outfit,
 } from "next/font/google";
 import "./globals.css";
 import Header from "./Header";
@@ -35,6 +36,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata = {
   title: "Fall Collection ’26 — High-Contrast Essentials",
   description:
@@ -45,7 +53,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${jetbrainsMono.variable}`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${jetbrainsMono.variable} ${outfit.variable}`}
     >
       <body>
         <Header />

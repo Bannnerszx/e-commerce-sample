@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
+import ContactModal from "./Contact";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -22,21 +24,27 @@ export default function Header() {
         </a>
 
         <nav className={styles.nav} aria-label="Primary">
-          <a className={styles.link} href="#tokens">
-            Tokens
+          <a className={styles.link} href="#store">
+            Store
           </a>
-          <a className={styles.link} href="#docs">
-            Docs
+          <a className={styles.link} href="#checkout">
+            Checkout
           </a>
-          <a className={styles.link} href="#components">
-            Components
+          <a className={styles.link} href="#logistics">
+            Logistics
           </a>
         </nav>
 
-        <a className={styles.cta} href="#tokens">
+        <button
+          type="button"
+          className={styles.cta}
+          onClick={() => setContactOpen(true)}
+        >
           Get started
-        </a>
+        </button>
       </div>
+
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </header>
   );
 }

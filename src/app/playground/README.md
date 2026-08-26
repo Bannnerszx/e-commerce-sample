@@ -1,12 +1,12 @@
 # Playground — Global Logistics & Operations Hub
 
-An interactive fleet-tracking map embedded as a live **playground** in section `02`
+An interactive fleet-tracking map embedded as a live **playground** in section `06`
 of the homepage. It's a trimmed-down port of a standalone Next.js project (the
 root-level `/map` folder) made self-contained: **local data, one ship, no external
 services.**
 
 - **Rendered at:** [`src/app/Showcase.js`](../Showcase.js) → `PlaygroundSection`
-  (`02 · Playground / Global Logistics & Operations Hub`)
+  (`06 · Playground / Global Logistics & Operations Hub`)
 - **Entry component:** [`Playground.js`](./Playground.js)
 - **Live demo ship:** `EVER GIVEN` (Rotterdam → Singapore, drawn from a 7-point
   forecast route)
@@ -152,7 +152,7 @@ in `src/` imports from it.
 
 ```bash
 npm run build     # compiles; `/` prerenders (map is client-only)
-npm run dev       # then open the homepage, scroll to section 02
+npm run dev       # then open the homepage, scroll to section 06
 ```
 
 Expected: the world map renders inside the bordered box with `EVER GIVEN` near Suez,
