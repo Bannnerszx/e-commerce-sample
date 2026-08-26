@@ -44,9 +44,9 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "Fall Collection ’26 — High-Contrast Essentials",
+  title: "Ban — Collection",
   description:
-    "A curated drop of high-contrast, monochrome-by-default essentials.",
+    "Some stuff from my experience.",
 };
 
 export default function RootLayout({ children }) {
