@@ -4,11 +4,21 @@ import { useEffect, useState } from "react";
 
 const CONTACT_EMAIL = "marcvan-work@proton.me";
 
+// StaticForms.dev — https://www.staticforms.dev
+// Set STATICFORMS_API_KEY in .env.local (local) and in Vercel's env vars
+// (deployed). It's exposed to the browser via next.config.mjs `env`, so the
+// name has no NEXT_PUBLIC_ prefix. The key ships in client JS — it's public by
+// design; spam is handled by the honeypot below plus StaticForms' filtering.
+const STATICFORMS_ENDPOINT = "https://api.staticforms.dev/submit";
+const STATICFORMS_API_KEY =
+  process.env.STATICFORMS_API_KEY || "your-api-key";
+
 export default function ContactModal({ open, onClose }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [sent, setSent] = useState(false);
+  const [honeypot, setHoneypot] = useState(""); // stays empty for real users
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
   // Close on Escape and lock body scroll while open.
   useEffect(() => {
@@ -30,25 +40,41 @@ export default function ContactModal({ open, onClose }) {
   const inputBase =
     "w-full rounded-md border border-text/20 bg-transparent px-3 py-2.5 text-text placeholder:text-text/40 focus:border-accent focus:outline-none";
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setStatus("sending");
 
-    const subject = `Portfolio contact${name ? ` — ${name}` : ""}`;
-    const bodyLines = [
-      message,
-      "",
-      "—",
-      name && `Name: ${name}`,
-      email && `Email: ${email}`,
-    ].filter(Boolean);
+    try {
+      const res = await fetch(STATICFORMS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          apiKey: STATICFORMS_API_KEY,
+          subject: "New portfolio contact",
+          name,
+          email,
+          replyTo: email,
+          message,
+          honeypot,
+        }),
+      });
 
-    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+      const data = await res.json().catch(() => ({}));
 
-    window.location.href = href;
-    setSent(true);
+      if (res.ok && data.success) {
+        setStatus("sent");
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
+
+  const sending = status === "sending";
 
   return (
     <div
@@ -87,17 +113,31 @@ export default function ContactModal({ open, onClose }) {
             Get started
           </h2>
           <p className="text-sm text-text/60">
-            Send me a message and your mail client opens ready to go.
+            Send me a message and I&rsquo;ll get back to you by email.
           </p>
         </header>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-md">
+          {/* Honeypot: hidden from users, catches bots. A real person never
+              fills this, so a non-empty value flags the submission as spam. */}
+          <input
+            type="text"
+            name="honeypot"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            className="hidden"
+          />
+
           <label className="flex flex-col gap-sm">
             <span className="font-mono text-[0.72rem] uppercase tracking-[0.06em] text-text/60">
               Name
             </span>
             <input
               type="text"
+              name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
@@ -111,6 +151,8 @@ export default function ContactModal({ open, onClose }) {
             </span>
             <input
               type="email"
+              name="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
@@ -124,6 +166,7 @@ export default function ContactModal({ open, onClose }) {
             </span>
             <textarea
               rows={4}
+              name="message"
               required
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -134,15 +177,20 @@ export default function ContactModal({ open, onClose }) {
 
           <button
             type="submit"
-            className="inline-flex items-center justify-center rounded-md bg-accent px-5 py-3 font-display text-sm font-semibold uppercase tracking-wide text-bg transition-colors hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            disabled={sending}
+            className="inline-flex items-center justify-center rounded-md bg-accent px-5 py-3 font-display text-sm font-semibold uppercase tracking-wide text-bg transition-colors hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Contact me now &rarr;
+            {sending ? "Sending…" : "Contact me now →"}
           </button>
 
-          {sent ? (
+          {status === "sent" ? (
+            <p className="font-mono text-[0.72rem] text-accent">
+              Thanks &mdash; your message is on its way. I&rsquo;ll reply to your
+              email soon.
+            </p>
+          ) : status === "error" ? (
             <p className="font-mono text-[0.72rem] text-text/60">
-              Opening your mail client&hellip; if nothing happens, email{" "}
-              {CONTACT_EMAIL} directly.
+              Something went wrong. Please email {CONTACT_EMAIL} directly.
             </p>
           ) : (
             <a
