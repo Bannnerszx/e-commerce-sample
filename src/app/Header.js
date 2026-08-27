@@ -30,6 +30,9 @@ export default function Header() {
           <a className={styles.link} href="#checkout">
             Checkout
           </a>
+          <a className={styles.link} href="#agents">
+            Agents
+          </a>
           <a className={styles.link} href="#logistics">
             Logistics
           </a>

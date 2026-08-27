@@ -2,6 +2,7 @@
 import Playground from "./playground/Playground";
 import BanMerch from "./playground/merch/BanMerch";
 import Checkout from "./playground/checkout/Checkout";
+import AgentStudio from "./playground/agent-studio/AgentStudio";
 
 function SectionHead({ index, kicker, title }) {
   return (
@@ -82,11 +83,11 @@ function PlaygroundSection() {
   );
 }
 
-function TypographySection() {
+function AgentStudioSection() {
   return (
-    <Section>
-      <SectionHead index="03" kicker="Playground" title="Unknown" />
-      <ComingSoon note="Unknown — stuff to be added soon." />
+    <Section id="agents">
+      <SectionHead index="03" kicker="Playground" title="AI Agent Builder" />
+      <AgentStudio />
     </Section>
   );
 }
@@ -114,7 +115,7 @@ export default function Showcase() {
     <div id="work" className="mx-auto w-full max-w-[1120px] px-md py-lg sm:px-lg">
       <MerchPlaygroundSection />
       <CheckoutPlaygroundSection />
-      <TypographySection />
+      <AgentStudioSection />
       <ButtonsSection />
       <FormSection />
       <PlaygroundSection />
